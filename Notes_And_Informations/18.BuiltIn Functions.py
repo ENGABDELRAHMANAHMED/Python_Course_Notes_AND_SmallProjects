@@ -23,12 +23,17 @@
 # [14] enumerate() ------- #
 # [15] help() ------------ #
 # [16] reversed() -------- #
+# [17] map() ------------- #
+# [18] filter() ---------- #
+# [19] reduce() ---------- #
 # ------------------------ #
 
 
 # ---------- #
 # [01] all() # 
 # ---------- #
+
+
 
 TrueAllList = [1, 2, 3, 4, 5]
 FalseAllList = [1, 2, 3, 4, 5 , [] ]
@@ -189,7 +194,96 @@ for Rletter in reversed(myString) :
     print(Rletter)
     
     
+# ----------------------------------------------------------------- #
+# [17] map() ------------------------------------------------------ # 
+# 1_ Map Take A Function + Iterator ------------------------------- #
+# 2_ Map Called Map Because It Map The Function On Every Element -- #
+# 3_ The Function Can Be Pre-Defined Function or Lambda Function -- #
+# ----------------------------------------------------------------- #
+
+# Use Map With Predefined Function
+
+myTexts = [" OSama ", "AHMED", "  sAYed  "]
+
+def formatText(text) :
+    return f"- {text.strip().title()} -"
+
+formatTextVariable = map(formatText, myTexts)
+
+for name in formatTextVariable :
+    print(name)
+
+# Use Map With Lambda Function
+
+for named in map(lambda texted : f"- {texted.title().strip()} -", myTexts) :
+    print(named)
     
-# ------------------------ #
-# ------- Part Two ------- #
-# ------------------------ #
+    
+# -------------------------------------------------------------------- #
+# [18] filter() ------------------------------------------------------ # 
+# 1_ Filter Take A Function + Iterator ------------------------------- #
+# 2_ Filter Run A Function On Every Element -------------------------- #
+# 3_ The Function Can Be Pre-Defined Function or Lambda Function ----- #
+# 4_ Filter Out All Elements For Which The Function Return True ------ #
+# 5_ The Function Need To Return Boolean Value ----------------------- #
+# -------------------------------------------------------------------- #
+
+# Example 1 (For Numbers)
+
+myNumbers = [0, 0, 1, 19, 10, 20, 100, 5, 0]
+
+def CheckNumber(number) :
+    return number >= 10
+
+TheCheckResult = filter(CheckNumber, myNumbers)
+
+for number in TheCheckResult :
+    print(number)
+    
+    
+# Example 2 (For Names)
+
+myNames = ["Osama", "Omer", "Omar", "Ahmed", "Sayed", "Othman", "Ameer"]
+
+def CheckName(name) : 
+    return name.startswith("O")
+
+CheckNameResult = filter(CheckName, myNames)
+
+for name in CheckNameResult :
+    print(name)
+    
+    
+# Example 3 (For Lambda Function)
+
+for person in filter(lambda named : named.startswith("A"), myNames) :
+    print(person)
+
+
+# ------------------------------------------------------------------------ #
+# [19] reduce() ---------------------------------------------------------- # 
+# 1_ Reduce Take A Function + Iterator ----------------------------------- #
+# 2_ Reduce Run A Function On FIrst and Second Element And Give Result --- #
+# 3_ Then Run Function On Result And Third Element ----------------------- #
+# 4_ Then Run Function On Rsult And Fourth Element And So On ------------- #
+# 5_ Till One ELement is Left And This is The Result of The Reduce ------- #
+# 6_ The Function Can Be Pre-Defined Function or Lambda Function --------- #
+# ------------------------------------------------------------------------ #
+
+
+from functools import reduce
+
+# Example One
+
+numbers = [1, 8, 2, 9, 100]
+
+def myFunc(num1, num2) :
+    return num1 + num2
+
+ReduceVariable = reduce(myFunc, numbers)
+print(ReduceVariable)
+
+# Example Two
+
+Result = reduce(lambda num1, num2 : num1 + num2 , numbers)
+print(Result)
